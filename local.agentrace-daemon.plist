@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>local.agentrace-daemon</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string><NODE_PATH></string>
+        <string><DAEMON_PATH></string>
+    </array>
+
+    <!-- 異常終了は launchd に再起動させる（KeepAlive と LaunchOnlyOnce は排他） -->
+    <key>KeepAlive</key>
+    <dict>
+        <key>SuccessfulExit</key>
+        <false/>
+    </dict>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>ExitTimeOut</key>
+    <integer>30</integer>
+
+    <key>ProcessType</key>
+    <string>Background</string>
+
+    <key>StandardOutPath</key>
+    <string><HOME>/Library/Logs/agentrace-daemon.out.log</string>
+
+    <key>StandardErrorPath</key>
+    <string><HOME>/Library/Logs/agentrace-daemon.err.log</string>
+
+    <!-- npx 解決のため最低限の PATH を明示 -->
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string><NODE_BIN_DIR>:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+        <key>HOME</key>
+        <string><HOME></string>
+    </dict>
+</dict>
+</plist>
